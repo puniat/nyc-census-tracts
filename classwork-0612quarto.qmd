@@ -1,0 +1,37 @@
+---
+title: "classwork-06-12"
+format: html
+---
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(readr)
+library(ggbeeswarm)
+```
+
+```{r}
+#| echo: false
+x <- read_csv("data/nyc_tracts.csv", show_col_types = FALSE)
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+x |> ggplot(mapping = aes(x = med_income, y = race)) +
+geom_beeswarm(aes(color = med_income), size = 1, alpha = 0.5) +
+labs(title = "Household income distribution by largest racial/ethic group",
+       subtitle = "Census tracts, New York City",
+       x = "Median household income",
+       y = "Largest group in Census tract", 
+       caption = "Data source: 2016-2020 ACS",
+       color = "Median Income") +
+scale_color_viridis_c() +
+ theme(aspect.ratio = 0.4)+
+  scale_x_continuous(labels = scales::dollar_format())
+```
+
+
